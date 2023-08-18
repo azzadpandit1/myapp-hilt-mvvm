@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/certificateFragment"
+        android:name="com.example.myapp.ui.fregment.CertificateFragment"
+        android:label="fragment_certificate"
+        tools:layout="@layout/fragment_certificate" />
+    <fragment
+        android:id="@+id/coursesFragment"
+        android:name="com.example.myapp.ui.fregment.CoursesFragment"
+        android:label="fragment_courses"
+        tools:layout="@layout/fragment_courses" />
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.example.myapp.ui.fregment.MoreFragment"
+        android:label="fragment_more"
+        tools:layout="@layout/fragment_more" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.myapp.ui.fregment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.myapp.ui.fregment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/screeningFragment"
+        android:name="com.example.myapp.ui.fregment.ScreeningFragment"
+        android:label="fragment_screening"
+        tools:layout="@layout/fragment_screening" />
+</navigation>
