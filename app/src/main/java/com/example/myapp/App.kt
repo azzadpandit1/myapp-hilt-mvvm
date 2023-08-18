@@ -1,4 +1,4 @@
-package com.example.myapp.di.modole
+package com.example.myapp
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

@@ -1,5 +1,6 @@
 package com.example.myapp.repository
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.myapp.source.remote.UserAPI
 import com.example.myapp.source.remote.response.UserListResponse
@@ -9,11 +10,12 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val userAPI: UserAPI) {
 
-    var userResponseLiveData = MutableLiveData<NetworkResult<UserListResponse>>()
-    suspend fun getUserList(){
+    suspend fun getUserList() : MutableLiveData<NetworkResult<UserListResponse>> {
+        val userResponseLiveData = MutableLiveData<NetworkResult<UserListResponse>>()
         userResponseLiveData.postValue(NetworkResult.Loading())
         val response = userAPI.getUserList()
         if (response.isSuccessful){
+            Log.e("TAG", "getUserList: "+response.body()?.data.toString() )
             userResponseLiveData.postValue(NetworkResult.Success(response.body()!!))
         }else if(response.errorBody()!=null){
             val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
@@ -21,6 +23,7 @@ class UserRepository @Inject constructor(private val userAPI: UserAPI) {
         }else{
             userResponseLiveData.postValue(NetworkResult.Error("Something Went Wrong"))
         }
+        return userResponseLiveData
     }
 
 }
