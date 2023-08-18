@@ -7,4 +7,5 @@
     <string name="certificate">certificate</string>
     <string name="profile">profile</string>
     <string name="more">more</string>
+    <string name="getdata">GET Data</string>
 </resources>
