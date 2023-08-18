@@ -1,11 +1,10 @@
 package com.example.myapp.ui.fregment
 
-import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.myapp.R
@@ -21,10 +20,6 @@ class HomeFragment : Fragment() ,View.OnClickListener{
 
     private val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
     private val viewModel by activityViewModels<UserViewModel>()
-
-//    var progressDialog: ProgressDialog? = null
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +31,9 @@ class HomeFragment : Fragment() ,View.OnClickListener{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        initObese()
+
         return binding.root
     }
 
@@ -43,8 +41,9 @@ class HomeFragment : Fragment() ,View.OnClickListener{
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getUserListRequest()
+        Log.e("TAG", "request data: ", )
 
-        initObese()
+
 
         setOnClickListner()
     }
@@ -57,15 +56,17 @@ class HomeFragment : Fragment() ,View.OnClickListener{
         viewModel.userResponseLiveData.observe(viewLifecycleOwner){
             when(it){
                 is NetworkResult.Success -> {
-
+                    Log.e("TAG", "initObese: succesfully", )
                     binding.txtView.text = it.data?.data.toString()
                     context?.toast({ "Done" })
                 }
                 is NetworkResult.Error -> {
                     context?.toast({ "Errro" })
+                    Log.e("TAG", "initObese: error", )
                 }
                 is NetworkResult.Loading ->{
                     context?.toast({ "loading" })
+                    Log.e("TAG", "initObese: loading ", )
                 }
             }
         }
