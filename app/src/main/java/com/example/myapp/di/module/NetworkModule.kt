@@ -1,7 +1,7 @@
-package com.example.myapp.di.modole
+package com.example.myapp.di.module
 
 import com.example.myapp.source.remote.AuthInterceptor
-import com.example.myapp.source.remote.UserAPI
+import com.example.myapp.source.remote.ApiEndPoint
 import com.example.myapp.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -31,8 +31,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun providesUserAPI(retrofitBuilder: Retrofit.Builder): UserAPI {
-        return retrofitBuilder.build().create(UserAPI::class.java)
+    fun providesUserAPI(retrofitBuilder: Retrofit.Builder): ApiEndPoint {
+        return retrofitBuilder.build().create(ApiEndPoint::class.java)
     }
 
 

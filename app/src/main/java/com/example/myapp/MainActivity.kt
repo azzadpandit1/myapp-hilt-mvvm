@@ -26,9 +26,6 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
 
 
-
-
-
     }
 
     private fun setupBottomNavigation() {
