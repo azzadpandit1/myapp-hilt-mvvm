@@ -1,6 +1,9 @@
 package com.example.myapp.utils
 
 object Constants {
-    const val BASE_URL = "https://reqres.in/"
+
+//    https://random-data-api.com/api/restaurant/random_restaurant?size=20
+
+    const val BASE_URL = "https://random-data-api.com/"
 
 }

@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.myapp.R
 import com.example.myapp.databinding.FragmentHomeBinding
-import com.example.myapp.source.remote.response.UserListResponse
-import com.example.myapp.utils.NetworkResult
+import com.example.myapp.source.local.room.model.Restaurant
+import com.example.myapp.utils.Resource
 import com.example.myapp.viewmodels.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,8 +40,6 @@ class HomeFragment : Fragment() ,View.OnClickListener{
 
         initObese()
 
-        viewModel.getUserListRequest()
-
         setOnClickListener()
     }
 
@@ -50,16 +48,16 @@ class HomeFragment : Fragment() ,View.OnClickListener{
     }
 
     private fun initObese() {
-        viewModel.getUserData.observe(viewLifecycleOwner){
+        viewModel.getUserData.observe(viewLifecycleOwner){ it->
             when(it){
-                is NetworkResult.Success -> {
-                    updateUi(it.data?.data)
+                is Resource.Success -> {
+                    updateUi(it.data)
                     Log.e("TAG", "initObese: Success", )
                 }
-                is NetworkResult.Error -> {
-                    Log.e("TAG", "initObese: error"+it.message )
+                is Resource.Error -> {
+                    Log.e("TAG", "initObese: error"+it.error.toString() )
                 }
-                is NetworkResult.Loading ->{
+                is Resource.Loading ->{
                     Log.e("TAG", "initObese: loading" )
                 }
             }
@@ -67,11 +65,11 @@ class HomeFragment : Fragment() ,View.OnClickListener{
     }
 
 
-    private fun updateUi(data: List<UserListResponse.Data>?) {
+    private fun updateUi(data: List<Restaurant>?) {
         for (i in data?.indices!!){
             val tv_dynamic = TextView(requireContext())
             tv_dynamic.textSize = 20f
-            tv_dynamic.text = data.get(i).first_name + " " + data.get(i).last_name
+            tv_dynamic.text = data.get(i).name + " \n " + data.get(i).address
             binding.llMainLayout.addView(tv_dynamic)
         }
 
@@ -80,7 +78,7 @@ class HomeFragment : Fragment() ,View.OnClickListener{
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn -> {
-                viewModel.getUserListRequest()
+
             }
         }
 
