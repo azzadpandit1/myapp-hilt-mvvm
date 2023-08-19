@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.myapp.R
 import com.example.myapp.databinding.FragmentHomeBinding
-import com.example.myapp.source.local.room.model.Restaurant
+import com.example.myapp.source.local.room.model.UserModel
 import com.example.myapp.utils.Resource
 import com.example.myapp.viewmodels.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,11 +65,11 @@ class HomeFragment : Fragment() ,View.OnClickListener{
     }
 
 
-    private fun updateUi(data: List<Restaurant>?) {
+    private fun updateUi(data: List<UserModel.Data>?) {
         for (i in data?.indices!!){
             val tv_dynamic = TextView(requireContext())
             tv_dynamic.textSize = 20f
-            tv_dynamic.text = data.get(i).name + " \n " + data.get(i).address
+            tv_dynamic.text = data.get(i).first_name + " " +data.get(i).last_name
             binding.llMainLayout.addView(tv_dynamic)
         }
 

@@ -23,7 +23,9 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideDatabase(app: Application) : RestaurantDatabase =
-        Room.databaseBuilder(app, RestaurantDatabase::class.java, "restaurant_database").build()
+        Room.databaseBuilder(app, RestaurantDatabase::class.java, "restaurant_database")
+            .fallbackToDestructiveMigration()
+            .build()
 
     @Singleton
     @Provides

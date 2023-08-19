@@ -49,7 +49,7 @@ class UserRepository @Inject constructor(private val apiEndPoint: ApiEndPoint , 
         saveFetchResult = {  restaurants ->
             db.withTransaction {
                 restaurantDao.deleteAllRestaurants()
-                restaurantDao.insertRestaurants(restaurants)
+                restaurantDao.insertRestaurants(restaurants.data)
             }
         }
     )
