@@ -55,7 +55,7 @@ dependencies {
 
     val hilt_version="2.38.1"
     implementation("com.google.dagger:hilt-android:$hilt_version")
-    kapt("com.google.dagger:hilt-compiler:$hilt_version")
+        kapt("com.google.dagger:hilt-compiler:$hilt_version")
 
 
     val nav_version = "2.3.2"
@@ -82,5 +82,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.2.5")
     androidTestImplementation("androidx.room:room-testing:2.2.5")
 
+    //adapter lib
+    implementation("com.github.pankaj89:SimpleAdapter:3.4.1")
 
 }

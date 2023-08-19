@@ -2,7 +2,7 @@ package com.example.myapp.di.module
 
 import android.app.Application
 import androidx.room.Room
-import com.example.myapp.source.local.room.Database.RestaurantDatabase
+import com.example.myapp.source.local.room.Database.UserDatabase
 import com.example.myapp.source.remote.AuthInterceptor
 import com.example.myapp.source.remote.ApiEndPoint
 import com.example.myapp.utils.Constants
@@ -17,13 +17,13 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class NetworkModule {
+class AppModule {
 
     //database instance
     @Provides
     @Singleton
-    fun provideDatabase(app: Application) : RestaurantDatabase =
-        Room.databaseBuilder(app, RestaurantDatabase::class.java, "restaurant_database")
+    fun provideDatabase(app: Application) : UserDatabase =
+        Room.databaseBuilder(app, UserDatabase::class.java, "restaurant_database")
             .fallbackToDestructiveMigration()
             .build()
 
