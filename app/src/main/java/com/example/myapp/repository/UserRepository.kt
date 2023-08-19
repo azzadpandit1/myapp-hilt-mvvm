@@ -1,6 +1,7 @@
 package com.example.myapp.repository
 
 import android.accounts.NetworkErrorException
+import android.util.Log
 import androidx.room.withTransaction
 import com.example.myapp.source.local.room.Database.RestaurantDatabase
 import com.example.myapp.source.networkBoundResource
@@ -40,9 +41,11 @@ class UserRepository @Inject constructor(private val apiEndPoint: ApiEndPoint , 
     private val restaurantDao = db.restaurantDao()
     fun getRestaurants()= networkBoundResource(
         query = {
+            Log.d("TAG", "getRestaurants: Query", )
             restaurantDao.getAllRestaurants()
         },
         fetch = {
+            Log.e("TAG", "getRestaurants: Fetch ", )
             delay(2000)
             apiEndPoint.getUserList()
         },
@@ -50,6 +53,7 @@ class UserRepository @Inject constructor(private val apiEndPoint: ApiEndPoint , 
             db.withTransaction {
                 restaurantDao.deleteAllRestaurants()
                 restaurantDao.insertRestaurants(restaurants.data)
+                Log.e("TAG", "getRestaurants: saveFetchResult", )
             }
         }
     )
