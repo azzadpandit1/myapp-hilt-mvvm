@@ -8,6 +8,6 @@ object Constants {
 
 
 //    https://reqres.in/api/users?page=2
-    const val BASE_URL = "https://reqres.in/"
+    const val BASE_URL = "https://raw.githubusercontent.com/"
 
 }

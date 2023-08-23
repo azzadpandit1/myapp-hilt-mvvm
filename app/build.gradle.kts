@@ -66,6 +66,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
     implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
 
     val coroutines_version = "1.6.0"
@@ -75,7 +76,6 @@ dependencies {
     val lifecycle_version = "2.2.0"
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
-
     // Room components
     implementation("androidx.room:room-runtime:2.2.5")
     kapt("androidx.room:room-compiler:2.2.5")
@@ -84,5 +84,14 @@ dependencies {
 
     //adapter lib
     implementation("com.github.pankaj89:SimpleAdapter:3.4.1")
+
+    //exoplayer video and mp3 play
+    implementation("com.google.android.exoplayer:exoplayer:2.17.1")
+
+    // glide for image
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+
+
 
 }

@@ -1,20 +1,19 @@
 package com.example.myapp.ui.fregment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
 import com.example.myapp.R
 import com.example.myapp.databinding.FragmentHomeBinding
-import com.example.myapp.source.local.room.model.UserModel
-import com.example.myapp.utils.Resource
+import com.example.myapp.source.local.room.model.GetUserResponse
+import com.example.myapp.utils.NetworkResult
+import com.example.myapp.utils.toast
 import com.example.myapp.viewmodels.UserViewModel
-import com.simpleadapter.SimpleAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,43 +52,66 @@ class HomeFragment : Fragment() ,View.OnClickListener{
 
     private fun setOnClickListener() {
         binding.btn.setOnClickListener(this)
+
+        binding.tvGif.setOnClickListener(this)
+        binding.tvVideo.setOnClickListener(this)
+        binding.tvImage.setOnClickListener(this)
+        binding.tvMp3.setOnClickListener(this)
     }
 
+
+
     private fun initObese() {
-        viewModel.getUserData.observe(viewLifecycleOwner){ it->
-            when(it){
-                is Resource.Success -> {
+        viewModel.getUserData.observe(viewLifecycleOwner) { it ->
+            when (it) {
+                is NetworkResult.Success -> {
+                    context?.toast({ "Done" })
                     updateUi(it.data)
-                    Log.e("TAG", "initObese: Success", )
                 }
-                is Resource.Error -> {
-                    Log.e("TAG", "initObese: error"+it.error.toString() )
+
+                is NetworkResult.Error -> {
+                    context?.toast({ "Errro" })
                 }
-                is Resource.Loading ->{
-                    Log.e("TAG", "initObese: loading" )
+
+                is NetworkResult.Loading -> {
+                    context?.toast({ "loading" })
                 }
+
             }
         }
     }
 
 
-    private fun updateUi(data: List<UserModel.Data>?) {
-
-        for (i in data?.indices!!){
-            val tv_dynamic = TextView(requireContext())
-            tv_dynamic.textSize = 20f
-            tv_dynamic.text = data.get(i).first_name + " " + data.get(i).last_name
-            binding.llMainLayout.addView(tv_dynamic)
-        }
-
-
+    private fun updateUi(data: GetUserResponse?) {
+       binding.tvGif.text = data?.data?.gif
+       binding.tvImage.text = data?.data?.image
+       binding.tvMp3.text = data?.data?.audio
+       binding.tvVideo.text = data?.data?.video
     }
 
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn -> {
-                viewModel.getRequestApi()
+                viewModel.getCacheFromNetwork()
             }
+            R.id.tvVideo -> {
+                val data = Bundle().apply { putString("url",binding.tvVideo.text.toString()) }
+                findNavController().navigate(R.id.action_homeFragment_to_playerFragment,data)
+            }
+            R.id.tvMp3 -> {
+                val data = Bundle().apply { putString("url",binding.tvMp3.text.toString()) }
+                findNavController().navigate(R.id.action_homeFragment_to_playerFragment,data)
+            }
+            R.id.tvImage -> {
+                val data = Bundle().apply { putString("url",binding.tvImage.text.toString()) }
+                findNavController().navigate(R.id.action_homeFragment_to_playerFragment,data)
+            }
+            R.id.tvGif -> {
+                val data = Bundle().apply { putString("url",binding.tvGif.text.toString()) }
+                findNavController().navigate(R.id.action_homeFragment_to_playerFragment,data)
+            }
+
+
         }
 
     }
